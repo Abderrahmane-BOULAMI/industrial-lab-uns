@@ -1,0 +1,12 @@
+id: S2
+titre: "Coupure franche du lien montant passerelle vers broker (20 s)"
+objectif: "Mesurer les pertes selon le mode de livraison quand le réseau entre la cellule et le SI tombe."
+duree_s: 50
+modes: [aucun, memoire, disque]
+evenements:
+  - {t: 15, action: coupure, lien: mqtt}
+  - {t: 35, action: retablir, lien: mqtt}
+criteres:
+  perte_pct: {max: 0}
+  rattrapage_s: {max: 10}
+  latence_p95_ms: {max: 500}

@@ -1,0 +1,11 @@
+id: S5
+titre: "Réseau dégradé : 200 ms de retard et jusqu'à 100 ms de gigue sur le lien montant pendant 30 s"
+objectif: "Vérifier qu'un WAN lent ne provoque ni perte ni désordre, et mesurer la latence de bout en bout."
+duree_s: 50
+modes: [disque]
+evenements:
+  - {t: 10, action: latence, lien: mqtt, retard_ms: 200, gigue_ms: 100}
+  - {t: 40, action: retablir, lien: mqtt}
+criteres:
+  perte_pct: {max: 0}
+  latence_max_ms: {max: 1500}

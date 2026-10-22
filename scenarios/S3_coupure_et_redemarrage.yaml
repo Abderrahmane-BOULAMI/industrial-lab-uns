@@ -1,0 +1,12 @@
+id: S3
+titre: "Coupure du lien montant et redémarrage brutal de la passerelle pendant la coupure"
+objectif: "Vérifier que les données mises en attente survivent à un redémarrage de l'edge (coupure d'alimentation, mise à jour)."
+duree_s: 50
+modes: [memoire, disque]
+evenements:
+  - {t: 15, action: coupure, lien: mqtt}
+  - {t: 25, action: redemarrer_passerelle}
+  - {t: 35, action: retablir, lien: mqtt}
+criteres:
+  perte_pct: {max: 0}
+  rattrapage_s: {max: 10}

@@ -1,0 +1,6 @@
+# Seule la passerelle écrit dans l'UNS ; l'historien lit.
+user gateway
+topic write entreprise/#
+
+user historian
+topic read entreprise/#

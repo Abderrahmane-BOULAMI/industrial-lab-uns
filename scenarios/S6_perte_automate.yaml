@@ -1,0 +1,12 @@
+id: S6
+titre: "Perte de l'automate du four (Modbus TCP) pendant 15 s"
+objectif: "Vérifier que la perte d'un équipement est signalée vite (qualité BAD, santé DOWN) et que le flux repart seul."
+duree_s: 40
+modes: [disque]
+evenements:
+  - {t: 10, action: coupure, lien: modbus}
+  - {t: 25, action: retablir, lien: modbus}
+criteres:
+  detection_s: {max: 3}
+  retablissement_s: {max: 3}
+  perte_pct: {max: 0}

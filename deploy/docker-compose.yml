@@ -1,0 +1,47 @@
+# LAB en conteneurs : broker Mosquitto, équipements simulés, passerelle edge, historien + API.
+# Mots de passe à fournir dans un fichier .env (voir .env.example), jamais dans le dépôt.
+# Lancement : cd deploy && docker compose up --build   puis   http://localhost:8000/docs
+services:
+  broker:
+    image: eclipse-mosquitto:2
+    entrypoint: >
+      sh -c "cp /conf/mosquitto.conf /conf/acl /mosquitto/config/ &&
+             mosquitto_passwd -b -c /mosquitto/config/passwd gateway $$GATEWAY_PASSWORD &&
+             mosquitto_passwd -b /mosquitto/config/passwd historian $$HISTORIAN_PASSWORD &&
+             chmod 0700 /mosquitto/config/passwd /mosquitto/config/acl &&
+             exec mosquitto -c /mosquitto/config/mosquitto.conf"
+    environment: [GATEWAY_PASSWORD, HISTORIAN_PASSWORD]
+    volumes: ["./mosquitto.conf:/conf/mosquitto.conf:ro", "./acl:/conf/acl:ro"]
+    ports: ["1883:1883"]
+
+  sim:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    command: ["sim"]
+
+  gateway:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    command: ["gateway"]
+    environment:
+      GATEWAY_PASSWORD: ${GATEWAY_PASSWORD}
+      MQTT_HOST: broker
+      SIM_HOST: sim
+      BUFFER_PATH: /data/gateway_buffer.sqlite
+    volumes: ["edge-buffer:/data"]
+    depends_on: [broker, sim]
+    restart: unless-stopped
+
+  historian:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    command: ["historian"]
+    environment:
+      HISTORIAN_PASSWORD: ${HISTORIAN_PASSWORD}
+      MQTT_HOST: broker
+      DB_PATH: /data/historian.sqlite
+    volumes: ["historian-data:/data"]
+    ports: ["8000:8000"]
+    depends_on: [broker]
+    restart: unless-stopped
+
+volumes:
+  edge-buffer:
+  historian-data:

@@ -1,0 +1,11 @@
+id: S4
+titre: "Lien silencieux (trou noir) de 20 s : rien ne passe mais aucune connexion n'est fermée"
+objectif: "Cas le plus piégeux : la passerelle croit être connectée. La détection repose sur le keepalive MQTT."
+duree_s: 60
+modes: [memoire, disque]
+evenements:
+  - {t: 15, action: trou_noir, lien: mqtt}
+  - {t: 35, action: retablir, lien: mqtt}
+criteres:
+  perte_pct: {max: 0}
+  rattrapage_s: {max: 15}

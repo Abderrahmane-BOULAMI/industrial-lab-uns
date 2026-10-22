@@ -1,0 +1,13 @@
+id: S1
+titre: "Fonctionnement nominal et cas d'usage disponibilité"
+objectif: "Vérifier le flux de bout en bout (OPC UA et Modbus vers UNS vers historien) et qu'un indicateur de pilotage calculé depuis l'UNS seul est juste."
+duree_s: 120
+modes: [disque]
+cas_usage_trs: true
+evenements: []
+criteres:
+  perte_pct: {max: 0}
+  invalides: {max: 0}
+  latence_p95_ms: {max: 500}
+  ecart_dispo_max_points: {max: 1.0}
+  ecart_pieces_max: {max: 0}

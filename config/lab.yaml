@@ -1,0 +1,86 @@
+# Configuration du LAB : une cellule d'usinage et un four de traitement thermique.
+# La passerelle est entièrement pilotée par ce fichier : ajouter une machine revient à ajouter un bloc.
+
+uns:
+  # Arborescence ISA-95 : entreprise / site / zone / ligne / cellule / équipement / variable
+  root: "entreprise/site-lab/usinage/ligne-1"
+
+broker:
+  host: "127.0.0.1"
+  port: 1883
+  keepalive_s: 5
+
+simulation:
+  seed: 7
+  tick_s: 0.2
+  machines:
+    - id: "CU-01"
+      cycle_s: 20
+      load_mean_pct: 55
+    - id: "CU-02"
+      cycle_s: 26
+      load_mean_pct: 62
+  furnace:
+    id: "FOUR-01"
+    setpoint_c: 850
+    ramp_c_per_s: 15
+    soak_s: 40
+    cool_c_per_s: 20
+
+sources:
+  opcua:
+    endpoint: "opc.tcp://127.0.0.1:4840/lab/"
+    namespace: "urn:lab:machines"
+    publishing_interval_ms: 100
+    equipments:
+      - id: "CU-01"
+        cell: "cellule-5axes"
+        tags:
+          State: {name: "etat", unit: ""}
+          SpindleLoad: {name: "charge-broche", unit: "%"}
+          PartCount: {name: "compteur-pieces", unit: "pieces"}
+          Program: {name: "programme", unit: ""}
+          Alarm: {name: "alarme", unit: ""}
+      - id: "CU-02"
+        cell: "cellule-5axes"
+        tags:
+          State: {name: "etat", unit: ""}
+          SpindleLoad: {name: "charge-broche", unit: "%"}
+          PartCount: {name: "compteur-pieces", unit: "pieces"}
+          Program: {name: "programme", unit: ""}
+          Alarm: {name: "alarme", unit: ""}
+  modbus:
+    host: "127.0.0.1"
+    port: 5020
+    device_id: 1
+    poll_s: 0.5
+    timeout_s: 1.0
+    equipment: "FOUR-01"
+    cell: "traitement-thermique"
+    # Registres de maintien (holding registers), adresse de départ 0
+    registers:
+      - {address: 0, name: "temperature", unit: "degC", scale: 0.1}
+      - {address: 1, name: "consigne", unit: "degC", scale: 0.1}
+      - {address: 2, name: "phase", unit: "", scale: 1, enum: ["attente", "montee", "palier", "refroidissement"]}
+      - {address: 3, name: "lot", unit: "", scale: 1}
+      - {address: 4, name: "battement", unit: "", scale: 1}
+
+gateway:
+  client_id: "edge-gw-01"
+  username: "gateway"
+  # mode de livraison : "aucun" (QoS 0, pas de tampon), "memoire" (QoS 1, file en mémoire),
+  # "disque" (QoS 1, tampon SQLite qui survit à un redémarrage)
+  delivery: "disque"
+  buffer_path: "gateway_buffer.sqlite"
+  max_inflight: 200
+  health_period_s: 1.0
+  bad_after_failures: 2
+  # Ne publier une mesure que si elle change au-delà de cette bande morte (en unités de la variable)
+  deadband:
+    charge-broche: 0.0
+    temperature: 0.0
+
+historian:
+  client_id: "historian-01"
+  username: "historian"
+  db_path: "historian.sqlite"

@@ -1,0 +1,12 @@
+id: S7
+titre: "Perte du serveur OPC UA des centres d'usinage pendant 15 s"
+objectif: "Vérifier la détection de la perte du serveur, la reconnexion automatique et la reprise des abonnements."
+duree_s: 45
+modes: [disque]
+evenements:
+  - {t: 10, action: coupure, lien: opcua}
+  - {t: 25, action: retablir, lien: opcua}
+criteres:
+  detection_s: {max: 5}
+  retablissement_s: {max: 10}
+  perte_pct: {max: 0}

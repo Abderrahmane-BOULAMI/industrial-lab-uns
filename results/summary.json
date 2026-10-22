@@ -1,0 +1,600 @@
+{
+ "scenarios": [
+  {
+   "id": "S1",
+   "titre": "Fonctionnement nominal et cas d'usage disponibilité",
+   "mode": "disque",
+   "duree_s": 120.0,
+   "indicateurs": {
+    "produits": 1752,
+    "recus_uniques": 1752,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 1,
+    "tampon_max": 6,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 56,
+    "latence_p95_ms": 109,
+    "latence_max_ms": 127,
+    "rattrapage_s": null,
+    "dispo_CU-01_uns_pct": 91.57,
+    "dispo_CU-01_reelle_pct": 91.57,
+    "pieces_CU-01_uns": 5,
+    "pieces_CU-01_reelles": 5,
+    "changements_etat_CU-01": 6,
+    "dispo_CU-02_uns_pct": 93.79,
+    "dispo_CU-02_reelle_pct": 93.79,
+    "pieces_CU-02_uns": 4,
+    "pieces_CU-02_reelles": 4,
+    "changements_etat_CU-02": 2,
+    "ecart_dispo_max_points": 0.001,
+    "ecart_pieces_max": 0
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "invalides": {
+     "valeur": 0,
+     "max": 0,
+     "ok": true
+    },
+    "latence_p95_ms": {
+     "valeur": 109,
+     "max": 500,
+     "ok": true
+    },
+    "ecart_dispo_max_points": {
+     "valeur": 0.001,
+     "max": 1.0,
+     "ok": true
+    },
+    "ecart_pieces_max": {
+     "valeur": 0,
+     "max": 0,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S2",
+   "titre": "Coupure franche du lien montant passerelle vers broker (20 s)",
+   "mode": "aucun",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 711,
+    "recus_uniques": 462,
+    "perdus": 249,
+    "perte_pct": 35.02,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 249,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 0,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 57,
+    "latence_p95_ms": 99,
+    "latence_max_ms": 105,
+    "rattrapage_s": null
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 35.02,
+     "max": 0,
+     "ok": false
+    },
+    "rattrapage_s": {
+     "valeur": null,
+     "max": 10,
+     "ok": false
+    },
+    "latence_p95_ms": {
+     "valeur": 99,
+     "max": 500,
+     "ok": true
+    }
+   },
+   "ok": false,
+   "mode_retenu": false
+  },
+  {
+   "id": "S2",
+   "titre": "Coupure franche du lien montant passerelle vers broker (20 s)",
+   "mode": "memoire",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 711,
+    "recus_uniques": 711,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 247,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 50,
+    "latence_p95_ms": 100,
+    "latence_max_ms": 20636,
+    "rattrapage_s": 0.87
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "rattrapage_s": {
+     "valeur": 0.87,
+     "max": 10,
+     "ok": true
+    },
+    "latence_p95_ms": {
+     "valeur": 100,
+     "max": 500,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": false
+  },
+  {
+   "id": "S2",
+   "titre": "Coupure franche du lien montant passerelle vers broker (20 s)",
+   "mode": "disque",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 711,
+    "recus_uniques": 711,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 247,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 57,
+    "latence_p95_ms": 119,
+    "latence_max_ms": 20644,
+    "rattrapage_s": 0.86
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "rattrapage_s": {
+     "valeur": 0.86,
+     "max": 10,
+     "ok": true
+    },
+    "latence_p95_ms": {
+     "valeur": 119,
+     "max": 500,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S3",
+   "titre": "Coupure du lien montant et redémarrage brutal de la passerelle pendant la coupure",
+   "mode": "memoire",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 686,
+    "recus_uniques": 562,
+    "perdus": 124,
+    "perte_pct": 18.08,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 119,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 53,
+    "latence_p95_ms": 100,
+    "latence_max_ms": 10046,
+    "rattrapage_s": 1.13
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 18.08,
+     "max": 0,
+     "ok": false
+    },
+    "rattrapage_s": {
+     "valeur": 1.13,
+     "max": 10,
+     "ok": true
+    }
+   },
+   "ok": false,
+   "mode_retenu": false
+  },
+  {
+   "id": "S3",
+   "titre": "Coupure du lien montant et redémarrage brutal de la passerelle pendant la coupure",
+   "mode": "disque",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 686,
+    "recus_uniques": 686,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 232,
+    "vidage_final_s": 0.1,
+    "latence_p50_ms": 56,
+    "latence_p95_ms": 115,
+    "latence_max_ms": 21017,
+    "rattrapage_s": 1.25
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "rattrapage_s": {
+     "valeur": 1.25,
+     "max": 10,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S4",
+   "titre": "Lien silencieux (trou noir) de 20 s : rien ne passe mais aucune connexion n'est fermée",
+   "mode": "memoire",
+   "duree_s": 60.0,
+   "indicateurs": {
+    "produits": 864,
+    "recus_uniques": 864,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 249,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 48,
+    "latence_p95_ms": 101,
+    "latence_max_ms": 20861,
+    "rattrapage_s": 1.12
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "rattrapage_s": {
+     "valeur": 1.12,
+     "max": 15,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": false
+  },
+  {
+   "id": "S4",
+   "titre": "Lien silencieux (trou noir) de 20 s : rien ne passe mais aucune connexion n'est fermée",
+   "mode": "disque",
+   "duree_s": 60.0,
+   "indicateurs": {
+    "produits": 861,
+    "recus_uniques": 861,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 95,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 2,
+    "tampon_max": 249,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 52,
+    "latence_p95_ms": 110,
+    "latence_max_ms": 20743,
+    "rattrapage_s": 0.93
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "rattrapage_s": {
+     "valeur": 0.93,
+     "max": 15,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S5",
+   "titre": "Réseau dégradé : 200 ms de retard et jusqu'à 100 ms de gigue sur le lien montant pendant 30 s",
+   "mode": "disque",
+   "duree_s": 50.0,
+   "indicateurs": {
+    "produits": 712,
+    "recus_uniques": 712,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 1,
+    "tampon_max": 11,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 56,
+    "latence_p95_ms": 113,
+    "latence_max_ms": 419,
+    "rattrapage_s": 0.18
+   },
+   "criteres": {
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    },
+    "latence_max_ms": {
+     "valeur": 419,
+     "max": 1500,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S6",
+   "titre": "Perte de l'automate du four (Modbus TCP) pendant 15 s",
+   "mode": "disque",
+   "duree_s": 40.0,
+   "indicateurs": {
+    "produits": 540,
+    "recus_uniques": 540,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 1,
+    "tampon_max": 5,
+    "vidage_final_s": 0.0,
+    "latence_p50_ms": 57,
+    "latence_p95_ms": 111,
+    "latence_max_ms": 127,
+    "rattrapage_s": 0.02,
+    "detection_s": 2.57,
+    "valeurs_bad_publiees": 4,
+    "retablissement_s": 0.08
+   },
+   "criteres": {
+    "detection_s": {
+     "valeur": 2.57,
+     "max": 3,
+     "ok": true
+    },
+    "retablissement_s": {
+     "valeur": 0.08,
+     "max": 3,
+     "ok": true
+    },
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  },
+  {
+   "id": "S7",
+   "titre": "Perte du serveur OPC UA des centres d'usinage pendant 15 s",
+   "mode": "disque",
+   "duree_s": 45.0,
+   "indicateurs": {
+    "produits": 544,
+    "recus_uniques": 544,
+    "perdus": 0,
+    "perte_pct": 0.0,
+    "doublons": 0,
+    "invalides": 0,
+    "jetes_passerelle": 0,
+    "deconnexions_mqtt": 1,
+    "tampon_max": 5,
+    "vidage_final_s": 0.1,
+    "latence_p50_ms": 52,
+    "latence_p95_ms": 112,
+    "latence_max_ms": 159,
+    "rattrapage_s": 0.1,
+    "detection_s": 0.05,
+    "valeurs_bad_publiees": 10,
+    "retablissement_s": 0.1
+   },
+   "criteres": {
+    "detection_s": {
+     "valeur": 0.05,
+     "max": 5,
+     "ok": true
+    },
+    "retablissement_s": {
+     "valeur": 0.1,
+     "max": 10,
+     "ok": true
+    },
+    "perte_pct": {
+     "valeur": 0.0,
+     "max": 0,
+     "ok": true
+    }
+   },
+   "ok": true,
+   "mode_retenu": true
+  }
+ ],
+ "securite": {
+  "id": "S8",
+  "titre": "Contrôles de sécurité du conduit OT vers IT",
+  "controles": [
+   {
+    "controle": "Connexion anonyme au broker refusée",
+    "ok": true,
+    "detail": "code retour 135"
+   },
+   {
+    "controle": "Mot de passe erroné refusé",
+    "ok": true,
+    "detail": "code retour 135"
+   },
+   {
+    "controle": "Écriture dans l'UNS interdite aux comptes lecteurs (ACL)",
+    "ok": true,
+    "detail": "7 messages légitimes reçus, injection reçue : False"
+   },
+   {
+    "controle": "Abonnement à l'UNS refusé au compte passerelle",
+    "ok": true,
+    "detail": "SUBACK [128], 0 messages reçus"
+   },
+   {
+    "controle": "Messages hors contrat rejetés par l'historien",
+    "ok": true,
+    "detail": "2 messages rejetés sur 2"
+   },
+   {
+    "controle": "Mots de passe stockés hachés (argon2), jamais en clair",
+    "ok": true,
+    "detail": "3 comptes"
+   }
+  ],
+  "ok": true
+ },
+ "maturite": {
+  "niveau": 4,
+  "grille": [
+   {
+    "niveau": 1,
+    "nom": "Démonstrateur",
+    "description": "Le flux de bout en bout fonctionne et un indicateur utile est juste.",
+    "atteint": true,
+    "criteres": [
+     {
+      "id": "S1",
+      "libelle": "flux nominal sans perte, latence p95 sous 500 ms, disponibilité juste à 1 point près",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "niveau": 2,
+    "nom": "Robuste aux défauts réseau",
+    "description": "Aucune perte de donnée sur les défauts réseau et équipement joués.",
+    "atteint": true,
+    "criteres": [
+     {
+      "id": "S2",
+      "libelle": "coupure franche du lien montant",
+      "ok": true
+     },
+     {
+      "id": "S3",
+      "libelle": "coupure et redémarrage de la passerelle",
+      "ok": true
+     },
+     {
+      "id": "S4",
+      "libelle": "lien silencieux",
+      "ok": true
+     },
+     {
+      "id": "S5",
+      "libelle": "réseau lent",
+      "ok": true
+     },
+     {
+      "id": "S6",
+      "libelle": "perte de l'automate Modbus",
+      "ok": true
+     },
+     {
+      "id": "S7",
+      "libelle": "perte du serveur OPC UA",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "niveau": 3,
+    "nom": "Sécurisé (base)",
+    "description": "Accès authentifiés, droits minimaux, messages contrôlés.",
+    "atteint": true,
+    "criteres": [
+     {
+      "id": "S8",
+      "libelle": "six contrôles de sécurité",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "niveau": 4,
+    "nom": "Exploitable et reproductible",
+    "description": "Configuration réutilisable, documentation et API disponibles.",
+    "atteint": true,
+    "criteres": [
+     {
+      "id": "DOC",
+      "libelle": "architecture, spécifications d'interfaces, sécurité, industrialisation",
+      "ok": true
+     },
+     {
+      "id": "CFG",
+      "libelle": "passerelle décrite entièrement par un fichier de configuration validé",
+      "ok": true
+     },
+     {
+      "id": "API",
+      "libelle": "API de l'historien testée",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "niveau": 5,
+    "nom": "Validé sur équipements réels",
+    "description": "Essais sur automates et machines du LAB physique, en charge réelle.",
+    "atteint": false,
+    "criteres": [
+     {
+      "id": "REEL",
+      "libelle": "non réalisable en simulation",
+      "ok": false
+     }
+    ]
+   }
+  ]
+ }
+}
